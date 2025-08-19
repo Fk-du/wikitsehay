@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: wikitsehay
+
+
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tsehaywiki
+    username: postgres
+    password: fkadunam
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+jwt:
+  secret: "YTQwfjWdeuFB9mLAElSuMhNjnhkc5h5+vgwPmAYijURKxXR0St91ePEFEtVJFqOFKOIEI9fkWper3l/2/BnYwICqh8P3YnzrJSHo5efS7+4="
+  expiration: 3600000
