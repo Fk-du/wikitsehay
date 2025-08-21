@@ -3,6 +3,7 @@ package com.bank.tsehay.wikitsehay.config;
 import com.bank.tsehay.wikitsehay.model.user.User;
 import com.bank.tsehay.wikitsehay.repository.UserRepository;
 import com.bank.tsehay.wikitsehay.service.user.JwtService;
+import com.bank.tsehay.wikitsehay.service.user.TokenBlacklistService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,6 +25,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserRepository userRepository;
+    private final TokenBlacklistService tokenBlacklistService;
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getServletPath();
+        // skip auth endpoints
+        return path.startsWith("/api/auth/");
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -31,9 +40,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
+
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
-        final Long userId;
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
@@ -41,10 +50,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         jwt = authHeader.substring(7);
-        userId = jwtService.extractUserId(jwt);
 
-        if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            User user = userRepository.findById(userId)
+        // Check if token is blacklisted
+        if (tokenBlacklistService.isBlacklisted(jwt)) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token invalidated");
+            return;
+        }
+
+        String email = jwtService.extractUsername(jwt);
+        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            User user = userRepository.findByCompanyEmail(email)
                     .orElseThrow(() -> new RuntimeException("User not found"));
 
             if (jwtService.isTokenValid(jwt, user)) {

@@ -12,6 +12,7 @@ import com.bank.tsehay.wikitsehay.repository.DepartmentRepository;
 import com.bank.tsehay.wikitsehay.repository.RoleRepository;
 import com.bank.tsehay.wikitsehay.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -44,18 +45,29 @@ public class AuthServiceImpl implements AuthService {
 
         // Create user
         User user = User.builder()
-                .name(request.getName())
+                .firstName(request.getFirstName())
+                .middleName(request.getMiddleName())
+                .lastName(request.getLastName())
                 .companyEmail(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .phone(request.getPhone())
                 .role(role)
                 .department(department)
+                .employeeId(request.getEmployeeId())
                 .build();
 
         User savedUser = userRepository.save(user);
 
         // Prepare response
         return userMapper.toRegisterUserResponse(savedUser);
+    }
+
+    // fetch logged in user from SecurityContext
+    @Override
+    public User getCurrentUser() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByCompanyEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found: " + email));
     }
 
     @Override
@@ -70,7 +82,8 @@ public class AuthServiceImpl implements AuthService {
         }
 
         // Generate JWT token
-        String token = jwtService.generateToken(user.getCompanyEmail());
+//        String token = jwtService.generateToken(user.getCompanyEmail());
+        String token = jwtService.generateToken(user);
 
 
         LoginResponse response = LoginResponse.builder()

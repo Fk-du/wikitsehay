@@ -3,6 +3,7 @@ package com.bank.tsehay.wikitsehay.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -24,7 +25,14 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable) // updated way to disable CSRF
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll() // public endpoints
+                        .requestMatchers("/api/auth/**").permitAll() // public endpoints
+                        .requestMatchers("/api/users/**").hasRole("ADMIN") // restrict /users/** to ADMIN
+                        .requestMatchers(HttpMethod.GET, "/api/users/{id}").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/users/{id}").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/incidents/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/incidents/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/incidents/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/incidents/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess ->

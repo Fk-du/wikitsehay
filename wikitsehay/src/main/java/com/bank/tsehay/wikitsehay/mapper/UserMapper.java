@@ -9,11 +9,13 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
     @Mapping(source = "companyEmail", target = "email")
-    @Mapping(target = "role", expression = "java(user.getRole().getName())")
-    @Mapping(target = "department", expression = "java(user.getDepartment().getName())")
+    @Mapping(source = "role.name", target = "role")
+    @Mapping(source = "department.name", target = "department")
+    @Mapping(source = "employeeId", target = "employeeId")
     RegisterUserResponse toRegisterUserResponse(User user);
 
-    @Mapping(target = "role", expression = "java(user.getRole().getName())")
-    @Mapping(target = "department", expression = "java(user.getDepartment().getName())")
+
+    @Mapping(source = "role.name", target = "role")
+    @Mapping(source = "department.name", target = "department")
     UserResponse toUserResponse(User user);
 }

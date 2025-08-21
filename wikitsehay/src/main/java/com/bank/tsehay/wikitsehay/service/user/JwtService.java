@@ -16,41 +16,22 @@ import java.util.Date;
 import java.util.function.Function;
 
 @Service
-@RequiredArgsConstructor
 public class JwtService {
+
     @Value("${jwt.secret}")
     private String secretKey;
 
-    @Value("${jwt.expiration}") // e.g. 3600000 (1 hour)
+    @Value("${jwt.expiration}")
     private long jwtExpiration;
 
-    // 🔑 Generate token with username (email)
-    public String generateToken(String username) {
-        return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
-                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
-                .compact();
+    private Key getSignInKey() {
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
     }
 
-    // ✅ Extract username (email) from token
     public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
+        return extractClaim(token, Claims::getSubject); // subject = email
     }
 
-    // ✅ Extract user ID from token
-    public Long extractUserId(String token) {
-        return Long.parseLong(extractClaim(token, Claims::getSubject));
-    }
-
-    // ✅ Validate token
-    public boolean isTokenValid(String token, User user) {
-        final Long userId = extractUserId(token);
-        return (userId.equals(user.getId()) && !isTokenExpired(token));
-    }
-
-    // ✅ Extract single claim
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
@@ -72,9 +53,17 @@ public class JwtService {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
-        return Keys.hmacShaKeyFor(keyBytes);
+    public String generateToken(User user) {
+        return Jwts.builder()
+                .setSubject(user.getCompanyEmail()) // ✅ email in subject
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    public boolean isTokenValid(String token, User user) {
+        final String email = extractUsername(token);
+        return (email.equals(user.getCompanyEmail()) && !isTokenExpired(token));
     }
 }
-

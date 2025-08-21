@@ -25,6 +25,8 @@ public class ProjectFile {
 
     private LocalDate uploadDate;
 
+    private String filePath; // path on disk
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
     private Project project;
