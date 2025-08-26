@@ -1,4 +1,4 @@
-package com.bank.tsehay.wikitsehay.repository;
+package com.bank.tsehay.wikitsehay.repository.project;
 
 import com.bank.tsehay.wikitsehay.model.project.Milestone;
 import org.springframework.data.jpa.repository.JpaRepository;

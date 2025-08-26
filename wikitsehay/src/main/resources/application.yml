@@ -2,8 +2,6 @@ spring:
   application:
     name: wikitsehay
 
-
-
   datasource:
     url: jdbc:postgresql://localhost:5432/tsehaywiki
     username: postgres
@@ -19,6 +17,23 @@ spring:
         format_sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+
+  mail:
+    host: localhost
+    port: 1025
+    username: ""
+    password: ""
+    properties:
+      mail.smtp.auth: false
+      mail.smtp.starttls.enable: false
+
+
 jwt:
-  secret: ""
+  secret: e84096a5e1eb1f4a17fc3fcdba41819a77821fcf2a49ac140546fc3331beddc9
   expiration: 3600000
+
+
+
+
+

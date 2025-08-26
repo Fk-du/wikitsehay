@@ -1,10 +1,7 @@
-package com.bank.tsehay.wikitsehay.controller;
+package com.bank.tsehay.wikitsehay.controller.user;
 
 
-import com.bank.tsehay.wikitsehay.dto.user.LoginRequest;
-import com.bank.tsehay.wikitsehay.dto.user.LoginResponse;
-import com.bank.tsehay.wikitsehay.dto.user.RegisterUserRequest;
-import com.bank.tsehay.wikitsehay.dto.user.RegisterUserResponse;
+import com.bank.tsehay.wikitsehay.dto.user.*;
 import com.bank.tsehay.wikitsehay.service.user.AuthService;
 import com.bank.tsehay.wikitsehay.service.user.TokenBlacklistService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,5 +38,20 @@ public class AuthController {
         }
         return ResponseEntity.ok("Logged out successfully");
     }
+
+    @PostMapping("/forgotpassword")
+    public ResponseEntity<String> forgotPassword(@RequestBody ForgotPasswordRequest request) {
+        authService.forgotPassword(request.getCompanyEmail());
+        return ResponseEntity.ok("Password reset link sent to email");
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordRequest request) {
+        authService.resetPassword(request.getToken(), request.getNewPassword());
+        return ResponseEntity.ok("Password reset successful");
+    }
+
+
+
 
 }

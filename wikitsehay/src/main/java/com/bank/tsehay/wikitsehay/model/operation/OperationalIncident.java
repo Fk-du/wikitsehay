@@ -25,7 +25,7 @@ public class OperationalIncident {
 
     private String severity;    // e.g., LOW, MEDIUM, HIGH, CRITICAL
 
-    private String category;    // e.g., NETWORK, HARDWARE, SOFTWARE
+    private String category;    // e.g., NETWORK, HARDWARE, SOFTWARE, OTHER
 
     @Column(length = 2000)
     private String description;

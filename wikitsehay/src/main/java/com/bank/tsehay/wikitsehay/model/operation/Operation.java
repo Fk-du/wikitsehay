@@ -30,6 +30,7 @@ public class Operation {
 
     private String status;
 
+    // Service Level Agreement
     private String sla;  // could be Duration/String depending on preference
 
     private String criticality; // e.g., LOW, MEDIUM, HIGH
@@ -38,7 +39,7 @@ public class Operation {
 
     private LocalDate endDate;   // optional, useful for lifecycle tracking
 
-    // 🔗 Relations
+    //  Relations
 
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = false)

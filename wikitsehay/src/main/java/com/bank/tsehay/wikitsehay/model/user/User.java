@@ -65,6 +65,7 @@ public class User implements UserDetails {
         return password;
     }
 
+
     @Override
     public String getUsername() {
         return companyEmail; // or employeeId, depending on your login field

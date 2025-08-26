@@ -4,8 +4,8 @@ import com.bank.tsehay.wikitsehay.dto.project.MilestoneRequest;
 import com.bank.tsehay.wikitsehay.dto.project.MilestoneResponse;
 import com.bank.tsehay.wikitsehay.model.project.Milestone;
 import com.bank.tsehay.wikitsehay.model.project.Project;
-import com.bank.tsehay.wikitsehay.repository.MilestoneRepository;
-import com.bank.tsehay.wikitsehay.repository.ProjectRepository;
+import com.bank.tsehay.wikitsehay.repository.project.MilestoneRepository;
+import com.bank.tsehay.wikitsehay.repository.project.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

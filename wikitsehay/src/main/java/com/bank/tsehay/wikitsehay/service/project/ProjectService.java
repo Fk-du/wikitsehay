@@ -6,7 +6,7 @@ import com.bank.tsehay.wikitsehay.mapper.ProjectMapper;
 import com.bank.tsehay.wikitsehay.model.Department;
 import com.bank.tsehay.wikitsehay.model.project.Project;
 import com.bank.tsehay.wikitsehay.repository.DepartmentRepository;
-import com.bank.tsehay.wikitsehay.repository.ProjectRepository;
+import com.bank.tsehay.wikitsehay.repository.project.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
