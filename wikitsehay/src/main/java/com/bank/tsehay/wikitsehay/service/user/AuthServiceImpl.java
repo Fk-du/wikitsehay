@@ -13,11 +13,11 @@ import com.bank.tsehay.wikitsehay.repository.DepartmentRepository;
 import com.bank.tsehay.wikitsehay.repository.RoleRepository;
 import com.bank.tsehay.wikitsehay.repository.UserRepository;
 import com.bank.tsehay.wikitsehay.repository.util.PasswordResetTokenRepository;
+import com.bank.tsehay.wikitsehay.exceptions.FieldAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,12 +39,18 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordResetTokenRepository tokenRepository;
 
 
-
     @Override
     public RegisterUserResponse registerUser(RegisterUserRequest request) {
         // Check if email already exists
         if (userRepository.existsByCompanyEmail(request.getEmail())) {
-            throw new RuntimeException("Email is already in use");
+            throw new FieldAlreadyExistsException("email", "Email already exists");
+        }
+
+        if (userRepository.existsByPhone(request.getPhone())) {
+            throw new FieldAlreadyExistsException("phone", "Phone already exists");
+        }
+        if (userRepository.existsByEmployeeId(request.getEmployeeId())) {
+            throw new FieldAlreadyExistsException("employeeId", "Employee ID already exists");
         }
 
         // Fetch role and department

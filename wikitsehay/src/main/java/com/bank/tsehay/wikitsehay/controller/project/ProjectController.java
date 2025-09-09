@@ -36,6 +36,12 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.getByDepartment(departmentId));
     }
 
+    @GetMapping("/department/{departmentId}/count")
+    public ResponseEntity<Long> countByDepartment(@PathVariable Long departmentId) {
+        long count = projectService.countByDepartment(departmentId);
+        return ResponseEntity.ok(count);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<ProjectResponse> updateProject(@PathVariable Long id,
                                                          @RequestBody ProjectRequest request) {

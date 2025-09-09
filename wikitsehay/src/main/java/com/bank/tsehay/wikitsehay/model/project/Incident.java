@@ -1,11 +1,15 @@
 package com.bank.tsehay.wikitsehay.model.project;
 
-
+import com.bank.tsehay.wikitsehay.model.BaseIncident;
 import com.bank.tsehay.wikitsehay.model.Department;
+import com.bank.tsehay.wikitsehay.Enums.ProjectIncidentCategory;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+
+
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "incidents")
@@ -13,35 +17,28 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Incident {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String title;
-
-    @Column(length = 2000)
-    private String description;
+@SuperBuilder
+public class Incident extends BaseIncident {
 
     private LocalDateTime dateRegistered;
-
     private LocalDateTime startDate;
-
     private LocalDateTime endDate;
 
-    private String severity; // e.g., Low, Medium, High, Critical
+    @Enumerated(EnumType.STRING)
+    private ProjectIncidentCategory category;
 
-    private String category; // e.g., System Failure, CyberAttack, Hardware Failure, ThirdParty Issue
-
-    // Incident can be linked to a department
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "department_id", nullable = true)
     private Department department;
 
-    // Incident can be linked to a project
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "project_id")
+    @JoinColumn(name = "project_id", nullable = true)
     private Project project;
+
+    // Optional: rootCause / actionTaken for post-mortem
+    @Column(length = 2000)
+    private String rootCause;
+
+    @Column(length = 2000)
+    private String actionTaken;
 }

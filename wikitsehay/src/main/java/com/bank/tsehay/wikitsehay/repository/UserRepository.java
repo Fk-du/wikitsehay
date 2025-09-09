@@ -19,6 +19,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @EntityGraph(attributePaths = {"department", "role"})  // tells Hibernate to fetch department eagerly
     boolean existsByCompanyEmail(String email);
+    @EntityGraph(attributePaths = {"department", "role"})  // tells Hibernate to fetch department eagerly
+    boolean existsByPhone(String email);
+    @EntityGraph(attributePaths = {"department", "role"})  // tells Hibernate to fetch department eagerly
+    boolean existsByEmployeeId(String email);
 
     /// //////////////////////////////////////////////////
 

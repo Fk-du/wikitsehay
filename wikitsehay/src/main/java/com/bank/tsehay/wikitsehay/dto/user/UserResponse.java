@@ -18,7 +18,7 @@ public class UserResponse {
     private String lastName;
     private String phone;
     private String title;
-    private String department;
+    private Long department;
     private String role;
 
     // mapper method
@@ -31,7 +31,7 @@ public class UserResponse {
                 .lastName(user.getLastName())
                 .phone(user.getPhone())
                 .title(user.getTitle())
-                .department(user.getDepartment().getName())
+                .department(user.getDepartment().getId())
                 .role(user.getRole() != null ? user.getRole().getName() : null)
                 .build();
     }

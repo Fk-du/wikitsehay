@@ -1,20 +1,33 @@
 package com.bank.tsehay.wikitsehay.dto.operation;
 
-
-import lombok.Data;
 import java.time.LocalDateTime;
 
-@Data
+
+
+import com.bank.tsehay.wikitsehay.Enums.OperationalIncidentCategory;
+import com.bank.tsehay.wikitsehay.Enums.Severity;
+import com.bank.tsehay.wikitsehay.Enums.Status;
+import lombok.*;
+
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class OperationalIncidentRequest {
+    private String title;
+    private String description;
+    private Severity severity;
+    private Status status;
+
     private LocalDateTime incidentDate;
     private LocalDateTime resolutionDate;
-    private String severity;
-    private String category;
-    private String description;
+    private OperationalIncidentCategory category;
     private String rootCause;
     private String actionTaken;
-    private Long serviceId;     // Operation reference
-    private Long reportedById;  // User reference
-    private Long resolvedById;  // User reference
+    private Long operationId;
+    private Long reportedById;
+    private Long resolvedById;
 }
-

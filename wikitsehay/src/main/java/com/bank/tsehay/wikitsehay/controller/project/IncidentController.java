@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/incidents")
+@RequestMapping("/api/projects/incidents")
 @RequiredArgsConstructor
 public class IncidentController {
 
@@ -19,6 +19,12 @@ public class IncidentController {
     @PostMapping
     public ResponseEntity<IncidentResponse> createIncident(@RequestBody IncidentRequest request) {
         return ResponseEntity.ok(incidentService.createIncident(request));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<IncidentResponse>> getAllIncidents() {
+        List<IncidentResponse> incidents = incidentService.getAllIncidents();
+        return ResponseEntity.ok(incidents);
     }
 
     @GetMapping("/{id}")

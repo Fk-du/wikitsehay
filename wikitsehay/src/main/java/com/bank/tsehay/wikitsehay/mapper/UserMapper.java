@@ -24,7 +24,7 @@ public class UserMapper {
                 .lastName(user.getLastName())
                 .phone(user.getPhone())
                 .title(user.getTitle())
-                .department(user.getDepartment() != null ? user.getDepartment().getName() : null)
+                .department(user.getDepartment() != null ? user.getDepartment().getId() : null)
                 .role(user.getRole() != null ? user.getRole().getName() : null)
                 .build();
     }

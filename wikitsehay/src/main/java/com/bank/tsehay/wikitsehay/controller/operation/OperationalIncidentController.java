@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/incidents")
+@RequestMapping("/api/operations/incidents")
 @RequiredArgsConstructor
 public class OperationalIncidentController {
     private final OperationalIncidentService incidentService;

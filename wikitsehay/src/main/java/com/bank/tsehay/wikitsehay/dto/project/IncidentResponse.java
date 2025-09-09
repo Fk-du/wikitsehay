@@ -1,22 +1,44 @@
 package com.bank.tsehay.wikitsehay.dto.project;
 
+import java.time.LocalDateTime;
 
-
-import lombok.Data;
+import com.bank.tsehay.wikitsehay.Enums.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class IncidentResponse {
+
     private Long id;
+
     private String title;
+
     private String description;
+
     private LocalDateTime dateRegistered;
+
     private LocalDateTime startDate;
+
     private LocalDateTime endDate;
-    private String severity;
-    private String category;
-    private String department;
-    private String project;
+
+    private Severity severity;           // enum
+
+    private ProjectIncidentCategory category; // enum
+
+    private Status status;               // lifecycle status
+
+    private String rootCause;            // optional
+
+    private String actionTaken;          // optional
+
+    private String department;           // department name
+
+    private String project;              // project name
 }
+
 

@@ -53,6 +53,8 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password; // store as BCrypt hash
 
+    @Column(nullable = false)
+    @Builder.Default
     private boolean active = true; // account status
 
     @Override

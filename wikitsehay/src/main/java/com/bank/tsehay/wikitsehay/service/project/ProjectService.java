@@ -52,6 +52,10 @@ public class ProjectService {
                 .stream().map(projectMapper::toResponse).toList();
     }
 
+    public long countByDepartment(Long departmentId) {
+        return projectRepository.countByDepartmentId(departmentId);
+    }
+
     public ProjectResponse updateProject(Long id, ProjectRequest request) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Project not found"));

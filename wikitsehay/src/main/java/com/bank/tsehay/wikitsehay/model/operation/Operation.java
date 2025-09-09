@@ -45,9 +45,11 @@ public class Operation {
     @JoinColumn(name = "department_id", nullable = false)
     private Department ownerDepartment;
 
-    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, orphanRemoval = true)
+
     @Builder.Default
+    @OneToMany(mappedBy = "operation", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OperationalIncident> operationalIncidents = new ArrayList<>();
+
 
     @Builder.Default
     @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, orphanRemoval = true)

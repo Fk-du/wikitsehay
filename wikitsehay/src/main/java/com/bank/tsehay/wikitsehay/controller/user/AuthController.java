@@ -1,13 +1,18 @@
 package com.bank.tsehay.wikitsehay.controller.user;
 
 
+import com.bank.tsehay.wikitsehay.dto.department.DepartmentResponse;
 import com.bank.tsehay.wikitsehay.dto.user.*;
+import com.bank.tsehay.wikitsehay.service.department.DepartmentService;
 import com.bank.tsehay.wikitsehay.service.user.AuthService;
+import com.bank.tsehay.wikitsehay.service.user.RoleService;
 import com.bank.tsehay.wikitsehay.service.user.TokenBlacklistService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -16,6 +21,8 @@ public class AuthController {
 
     private final AuthService authService;
     private final TokenBlacklistService tokenBlackListService;
+    private final RoleService roleService;
+    private final DepartmentService departmentService;
 
     @PostMapping("/register")
     public ResponseEntity<RegisterUserResponse> register(@RequestBody RegisterUserRequest request) {
@@ -51,6 +58,15 @@ public class AuthController {
         return ResponseEntity.ok("Password reset successful");
     }
 
+    @GetMapping("/departments")
+    public ResponseEntity<List<DepartmentResponse>> getAllDepartments() {
+        return ResponseEntity.ok(departmentService.getAllDepartments());
+    }
+
+    @GetMapping("/roles")
+    public ResponseEntity<List<RoleResponse>> getAllRoles() {
+        return ResponseEntity.ok(roleService.getAllRoles());
+    }
 
 
 

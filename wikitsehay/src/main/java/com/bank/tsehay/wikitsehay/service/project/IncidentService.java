@@ -1,5 +1,6 @@
 package com.bank.tsehay.wikitsehay.service.project;
 
+import com.bank.tsehay.wikitsehay.dto.operation.OperationalIncidentResponse;
 import com.bank.tsehay.wikitsehay.dto.project.IncidentRequest;
 import com.bank.tsehay.wikitsehay.dto.project.IncidentResponse;
 import com.bank.tsehay.wikitsehay.mapper.IncidentMapper;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,21 +30,14 @@ public class IncidentService {
     private final IncidentMapper incidentMapper;
     private final AuthService authService;
 
-    private final UserService userService; // to fetch current user
 
     private User getCurrentUser() {
-        return authService.getCurrentUser(); // from JWT/session
+        return authService.getCurrentUser();
     }
 
     private void checkDepartmentAccess(Department department) {
         User user = getCurrentUser();
-
-        // SUPER_USER bypass (later)
-        if (user.getRole().getName().equals("SUPER_USER")) {
-            return;
-        }
-
-        // must belong to same department
+        if (user.getRole().getName().equals("SUPER_USER")) return;
         if (!user.getDepartment().getId().equals(department.getId())) {
             throw new RuntimeException("Access denied: not your department");
         }
@@ -68,11 +63,22 @@ public class IncidentService {
                 .endDate(request.getEndDate())
                 .severity(request.getSeverity())
                 .category(request.getCategory())
+                .status(request.getStatus() != null ? request.getStatus() : com.bank.tsehay.wikitsehay.Enums.Status.OPEN)
+                .rootCause(request.getRootCause())
+                .actionTaken(request.getActionTaken())
                 .department(dept)
                 .project(proj)
+                .createdBy(getCurrentUser())
                 .build();
 
-        return incidentMapper.toResponse(incidentRepository.save(incident));
+        Incident saved = incidentRepository.save(incident);
+        return incidentMapper.toResponse(saved);
+    }
+
+    public List<IncidentResponse> getAllIncidents() {
+        return incidentRepository.findAll().stream()
+                .map(incidentMapper::toResponse)  // map each Incident to IncidentResponse
+                .collect(Collectors.toList());
     }
 
     public IncidentResponse getIncident(Long id) {
@@ -82,7 +88,6 @@ public class IncidentService {
         checkDepartmentAccess(incident.getDepartment());
         return incidentMapper.toResponse(incident);
     }
-
 
     public List<IncidentResponse> getByDepartment(Long departmentId) {
         return incidentRepository.findByDepartmentId(departmentId)
@@ -104,6 +109,9 @@ public class IncidentService {
         incident.setEndDate(request.getEndDate());
         incident.setSeverity(request.getSeverity());
         incident.setCategory(request.getCategory());
+        incident.setStatus(request.getStatus() != null ? request.getStatus() : incident.getStatus());
+        incident.setRootCause(request.getRootCause());
+        incident.setActionTaken(request.getActionTaken());
 
         if (request.getDepartmentId() != null) {
             Department dept = departmentRepository.findById(request.getDepartmentId())
@@ -128,4 +136,3 @@ public class IncidentService {
         incidentRepository.deleteById(id);
     }
 }
-

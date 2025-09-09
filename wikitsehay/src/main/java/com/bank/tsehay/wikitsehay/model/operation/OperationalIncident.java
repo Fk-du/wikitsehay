@@ -1,9 +1,12 @@
 package com.bank.tsehay.wikitsehay.model.operation;
 
-
 import com.bank.tsehay.wikitsehay.model.user.User;
+import com.bank.tsehay.wikitsehay.model.BaseIncident;
+import com.bank.tsehay.wikitsehay.Enums.OperationalIncidentCategory;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,23 +15,14 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class OperationalIncident {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@SuperBuilder
+public class OperationalIncident extends BaseIncident {
 
     private LocalDateTime incidentDate;
-
     private LocalDateTime resolutionDate;
 
-    private String severity;    // e.g., LOW, MEDIUM, HIGH, CRITICAL
-
-    private String category;    // e.g., NETWORK, HARDWARE, SOFTWARE, OTHER
-
-    @Column(length = 2000)
-    private String description;
+    @Enumerated(EnumType.STRING)
+    private OperationalIncidentCategory category;
 
     @Column(length = 2000)
     private String rootCause;
@@ -36,18 +30,15 @@ public class OperationalIncident {
     @Column(length = 2000)
     private String actionTaken;
 
-    // 🔗 Relations
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id", nullable = false)
-    private Operation service;
+    private Operation operation;
 
-    @ManyToOne
-    @JoinColumn(name = "reported_by_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reported_by_id", nullable = true)
     private User reportedBy;
 
-    @ManyToOne
-    @JoinColumn(name = "resolved_by_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "resolved_by_id", nullable = true)
     private User resolvedBy;
 }
-

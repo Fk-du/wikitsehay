@@ -3,6 +3,7 @@ package com.bank.tsehay.wikitsehay.controller.operation;
 
 import com.bank.tsehay.wikitsehay.dto.operation.OperationRequest;
 import com.bank.tsehay.wikitsehay.dto.operation.OperationResponse;
+import com.bank.tsehay.wikitsehay.dto.project.ProjectResponse;
 import com.bank.tsehay.wikitsehay.service.operation.OperationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,23 @@ public class OperationController {
     @GetMapping
     public ResponseEntity<List<OperationResponse>> getAllOperations() {
         return ResponseEntity.ok(operationService.getAllOperations());
+    }
+
+    @GetMapping("/department/{departmentId}")
+    public ResponseEntity<List<OperationResponse>> getByDepartment(@PathVariable Long departmentId) {
+        return ResponseEntity.ok(operationService.getByDepartment(departmentId));
+    }
+
+    @GetMapping("/department/{departmentId}/count")
+    public ResponseEntity<Long> countByDepartment(@PathVariable Long departmentId) {
+        long count = operationService.countByDepartment(departmentId);
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/department/{departmentId}/running/count")
+    public ResponseEntity<Long> countRunningServicesByDepartment(@PathVariable Long departmentId) {
+        long count = operationService.countByDepartmentAndStatus(departmentId, "RUNNING");
+        return ResponseEntity.ok(count);
     }
 
     @GetMapping("/{id}")

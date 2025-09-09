@@ -44,10 +44,25 @@ public class OperationService {
                 .collect(Collectors.toList());
     }
 
+    public long countByDepartment(Long departmentId) {
+        return operationRepository.countByOwnerDepartmentId(departmentId);
+    }
+
+
+    public List<OperationResponse> getByDepartment(Long departmentId) {
+        return operationRepository.findByOwnerDepartmentId(departmentId)
+                .stream().map(this::toResponse)
+                .collect(Collectors.toList());
+    }
+
     public OperationResponse getOperationById(Long id) {
         return operationRepository.findById(id)
                 .map(this::toResponse)
                 .orElseThrow(() -> new RuntimeException("Operation not found"));
+    }
+
+    public long countByDepartmentAndStatus(Long departmentId, String status) {
+        return operationRepository.countByOwnerDepartmentIdAndStatus(departmentId, status);
     }
 
     public OperationResponse updateOperation(Long id, OperationRequest request) {
