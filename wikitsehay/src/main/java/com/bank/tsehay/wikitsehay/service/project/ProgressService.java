@@ -74,4 +74,16 @@ public class ProgressService {
         response.setProjectName(progress.getProject().getName());
         return response;
     }
+
+    public List<ProgressResponse> getProjectProgress(Long projectId) {
+        List<Progress> progressList = progressRepository.findByProjectId(projectId);
+
+        return progressList.stream().map(p -> ProgressResponse.builder()
+                .id(p.getId())
+                .reportDate(p.getReportDate())
+                .summary(p.getSummary())
+                .projectName(p.getProject().getName())
+                .build()
+        ).collect(Collectors.toList());
+    }
 }

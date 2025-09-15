@@ -4,8 +4,10 @@ import com.bank.tsehay.wikitsehay.dto.project.ProjectRequest;
 import com.bank.tsehay.wikitsehay.dto.project.ProjectResponse;
 import com.bank.tsehay.wikitsehay.mapper.ProjectMapper;
 import com.bank.tsehay.wikitsehay.model.Department;
+import com.bank.tsehay.wikitsehay.model.user.User;
 import com.bank.tsehay.wikitsehay.model.project.Project;
 import com.bank.tsehay.wikitsehay.repository.DepartmentRepository;
+import com.bank.tsehay.wikitsehay.repository.UserRepository;
 import com.bank.tsehay.wikitsehay.repository.project.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,11 +20,18 @@ public class ProjectService {
 
     private final ProjectRepository projectRepository;
     private final DepartmentRepository departmentRepository;
+    private final UserRepository userRepository;
     private final ProjectMapper projectMapper;
 
     public ProjectResponse createProject(ProjectRequest request) {
         Department department = departmentRepository.findById(request.getDepartmentId())
                 .orElseThrow(() -> new RuntimeException("Department not found"));
+
+        User manager = null;
+        if (request.getManager() != null) {
+            manager = userRepository.findByCompanyEmail(request.getManager())
+                    .orElseThrow(() -> new RuntimeException("Manager not found"));
+        }
 
         Project project = Project.builder()
                 .name(request.getName())
@@ -31,6 +40,8 @@ public class ProjectService {
                 .endDate(request.getEndDate())
                 .status(request.getStatus())
                 .department(department)
+                .manager(manager)
+                .vendor(request.getVendor())
                 .build();
 
         return projectMapper.toResponse(projectRepository.save(project));
@@ -65,6 +76,13 @@ public class ProjectService {
         project.setStartDate(request.getStartDate());
         project.setEndDate(request.getEndDate());
         project.setStatus(request.getStatus());
+        project.setVendor(request.getVendor());
+
+        if (request.getManager() != null) {
+            User manager = userRepository.findByCompanyEmail(request.getManager())
+                    .orElseThrow(() -> new RuntimeException("Manager not found"));
+            project.setManager(manager);
+        }
 
         if (request.getDepartmentId() != null) {
             Department department = departmentRepository.findById(request.getDepartmentId())
@@ -80,5 +98,26 @@ public class ProjectService {
             throw new RuntimeException("Project not found");
         }
         projectRepository.deleteById(id);
+    }
+
+    public ProjectResponse getProjectDetail(Long departmentId, Long projectId) {
+        Project project = projectRepository.findByIdAndDepartmentId(projectId, departmentId)
+                .orElseThrow(() -> new RuntimeException("Project not found in this department"));
+
+        return mapToResponse(project);
+    }
+
+    private ProjectResponse mapToResponse(Project project) {
+        return ProjectResponse.builder()
+                .id(project.getId())
+                .name(project.getName())
+                .charter(project.getCharter())
+                .startDate(project.getStartDate())
+                .endDate(project.getEndDate())
+                .status(project.getStatus())
+                .department(project.getDepartment().getName())
+                .manager(project.getManager() != null ? project.getManager().getUsername() : null)
+                .vendor(project.getVendor())
+                .build();
     }
 }

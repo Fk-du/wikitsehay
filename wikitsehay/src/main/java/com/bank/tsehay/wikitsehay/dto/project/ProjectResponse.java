@@ -15,5 +15,7 @@ public class ProjectResponse {
     private LocalDate endDate;
     private String status;
     private String department;
+    private String manager;
+    private String vendor;
 }
 

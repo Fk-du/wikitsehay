@@ -53,4 +53,12 @@ public class ProjectController {
         projectService.deleteProject(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/department/{departmentId}/{projectId}")
+    public ResponseEntity<ProjectResponse> getProjectDetail(
+            @PathVariable Long departmentId,
+            @PathVariable Long projectId) {
+        ProjectResponse project = projectService.getProjectDetail(departmentId, projectId);
+        return ResponseEntity.ok(project);
+    }
 }

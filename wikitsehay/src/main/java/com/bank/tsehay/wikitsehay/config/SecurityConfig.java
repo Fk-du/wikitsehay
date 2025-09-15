@@ -26,7 +26,7 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtFilter;
 
     // Inject allowed origins from application.properties
-    @Value("${cors.allowed-origins:http://localhost:5173}")
+    @Value("${cors.allowed-origins:http://10.6.9.8:5173}")
     private String[] allowedOrigins;
 
 
@@ -54,6 +54,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/projects/**").authenticated()
                         .requestMatchers("/api/operations/**").authenticated()
                         .requestMatchers("/api/incidents/**").authenticated()
+                        .requestMatchers("/api/files/**").authenticated()
                         // All other requests require authentication
                         .anyRequest().authenticated()
                 )

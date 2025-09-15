@@ -13,5 +13,6 @@ public interface OperationRepository extends JpaRepository<Operation, Long> {
     List<Operation> findByOwnerDepartmentId(Long departmentId);
     Long countByOwnerDepartmentId(Long departmentId);
     long countByOwnerDepartmentIdAndStatus(Long departmentId, String status);
+    List<Operation> findByNameContainingIgnoreCase(String name);
 }
 

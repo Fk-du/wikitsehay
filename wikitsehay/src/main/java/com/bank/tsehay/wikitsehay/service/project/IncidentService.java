@@ -135,4 +135,29 @@ public class IncidentService {
         }
         incidentRepository.deleteById(id);
     }
+
+    public List<IncidentResponse> getProjectIncidents(Long departmentId, Long projectId) {
+        List<Incident> incidents = incidentRepository.findByProjectIdAndDepartmentId(projectId, departmentId);
+
+        return incidents.stream().map(this::mapToDto).collect(Collectors.toList());
+    }
+
+    private IncidentResponse mapToDto(Incident incident) {
+        return IncidentResponse.builder()
+                .id(incident.getId())
+                .title(incident.getTitle())
+                .description(incident.getDescription())
+                .dateRegistered(incident.getDateRegistered())
+                .startDate(incident.getStartDate())
+                .endDate(incident.getEndDate())
+                .severity(incident.getSeverity())
+                .category(incident.getCategory())
+                .status(incident.getStatus())
+                .rootCause(incident.getRootCause())
+                .actionTaken(incident.getActionTaken())
+                .department(incident.getDepartment() != null ? incident.getDepartment().getName() : null)
+                .project(incident.getProject() != null ? incident.getProject().getName() : null)
+                .build();
+    }
+
 }

@@ -12,4 +12,6 @@ public class ProjectRequest {
     private LocalDate endDate;
     private String status;
     private Long departmentId;
+    private String manager;
+    private String vendor;
 }

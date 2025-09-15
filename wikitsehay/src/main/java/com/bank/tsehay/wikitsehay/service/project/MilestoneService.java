@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -71,5 +72,19 @@ public class MilestoneService {
                 .status(milestone.getStatus())
                 .projectId(milestone.getProject().getId())
                 .build();
+    }
+
+    public List<MilestoneResponse> getProjectMilestones(Long departmentId, Long projectId) {
+        List<Milestone> milestones = milestoneRepository.findByProjectIdAndProjectDepartmentId(projectId, departmentId);
+
+        return milestones.stream()
+                .map(m -> MilestoneResponse.builder()
+                        .id(m.getId())
+                        .name(m.getName())
+                        .dueDate(m.getDueDate())
+                        .status(m.getStatus())
+                        .projectId(m.getProject().getId())
+                        .build())
+                .collect(Collectors.toList());
     }
 }

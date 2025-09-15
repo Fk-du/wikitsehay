@@ -2,6 +2,11 @@ spring:
   application:
     name: wikitsehay
 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
   datasource:
     url: jdbc:postgresql://localhost:5432/tsehaywiki
     username: postgres
@@ -18,7 +23,6 @@ spring:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
-
   mail:
     host: localhost
     port: 1025
@@ -28,10 +32,17 @@ spring:
       mail.smtp.auth: false
       mail.smtp.starttls.enable: false
 
+cors:
+  allowed-origins:
+    - "http://localhost:5173"
+    - "http://10.6.9.7:5173"
 
 jwt:
   secret: e84096a5e1eb1f4a17fc3fcdba41819a77821fcf2a49ac140546fc3331beddc9
   expiration: 3600000
+
+
+
 
 
 

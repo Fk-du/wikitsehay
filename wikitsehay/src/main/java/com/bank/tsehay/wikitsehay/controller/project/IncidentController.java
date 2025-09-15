@@ -37,6 +37,15 @@ public class IncidentController {
         return ResponseEntity.ok(incidentService.getByDepartment(departmentId));
     }
 
+    @GetMapping("/department/{departmentId}/{projectId}")
+    public ResponseEntity<List<IncidentResponse>> getProjectIncidents(
+            @PathVariable Long departmentId,
+            @PathVariable Long projectId) {
+
+        List<IncidentResponse> incidents = incidentService.getProjectIncidents(departmentId, projectId);
+        return ResponseEntity.ok(incidents);
+    }
+
     @GetMapping("/project/{projectId}")
     public ResponseEntity<List<IncidentResponse>> getByProject(@PathVariable Long projectId) {
         return ResponseEntity.ok(incidentService.getByProject(projectId));

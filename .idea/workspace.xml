@@ -5,41 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5bf4cdaa-3db6-4728-ac51-1b882d6ef037" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/Enums/OperationalIncidentCategory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/Enums/ProjectIncidentCategory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/Enums/Severity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/Enums/Status.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/exceptions/FieldAlreadyExistsException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/exceptions/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/model/BaseIncident.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/wikitsehay.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/wikitsehay.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/utils/MediaTypes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/controller/operation/OperationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/controller/operation/OperationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/controller/operation/OperationalIncidentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/controller/operation/OperationalIncidentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/controller/project/IncidentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/controller/project/IncidentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/controller/project/MilestoneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/controller/project/MilestoneController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/controller/project/ProgressController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/controller/project/ProgressController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/controller/project/ProjectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/controller/project/ProjectController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/controller/user/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/controller/user/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/dto/operation/OperationalIncidentRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/dto/operation/OperationalIncidentRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/dto/operation/OperationalIncidentResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/dto/operation/OperationalIncidentResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/dto/project/IncidentRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/dto/project/IncidentRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/dto/project/IncidentResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/dto/project/IncidentResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/dto/user/UserResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/dto/user/UserResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/model/operation/Operation.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/model/operation/Operation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/model/operation/OperationalIncident.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/model/operation/OperationalIncident.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/model/project/Incident.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/model/project/Incident.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/model/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/model/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/controller/project/ProjectFileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/controller/project/ProjectFileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/dto/project/ProgressRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/dto/project/ProgressRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/dto/project/ProgressResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/dto/project/ProgressResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/dto/project/ProjectRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/dto/project/ProjectRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/dto/project/ProjectResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/dto/project/ProjectResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/model/project/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/model/project/Project.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/repository/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/repository/operation/OperationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/repository/operation/OperationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/repository/project/IncidentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/repository/project/IncidentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/repository/project/MilestoneRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/repository/project/MilestoneRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/repository/project/ProgressRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/repository/project/ProgressRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/repository/project/ProjectRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/repository/project/ProjectRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/service/operation/OperationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/service/operation/OperationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/service/operation/OperationalIncidentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/service/operation/OperationalIncidentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/service/project/IncidentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/service/project/IncidentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/service/project/MilestoneService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/service/project/MilestoneService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/service/project/ProgressService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/service/project/ProgressService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/service/project/ProjectFileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/service/project/ProjectFileService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/service/project/ProjectService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/service/project/ProjectService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/service/user/AuthServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/java/com/bank/tsehay/wikitsehay/service/user/AuthServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wikitsehay/src/test/java/com/bank/tsehay/wikitsehay/WikitsehayApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wikitsehay/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/wikitsehay/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,8 +39,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -91,6 +81,7 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
@@ -133,5 +124,16 @@
       <updated>1756723067626</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

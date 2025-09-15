@@ -42,5 +42,11 @@ public class ProgressController {
         progressService.deleteProgress(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/project/{projectId}")
+    public ResponseEntity<List<ProgressResponse>> getProjectProgress(@PathVariable Long projectId) {
+        List<ProgressResponse> progressList = progressService.getProjectProgress(projectId);
+        return ResponseEntity.ok(progressList);
+    }
 }
 

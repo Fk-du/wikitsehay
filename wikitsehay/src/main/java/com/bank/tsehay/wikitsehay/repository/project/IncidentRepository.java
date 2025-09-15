@@ -10,4 +10,6 @@ import java.util.List;
 public interface IncidentRepository extends JpaRepository<Incident, Long> {
     List<Incident> findByDepartmentId(Long departmentId);
     List<Incident> findByProjectId(Long projectId);
+    List<Incident> findByTitleContainingIgnoreCase(String title);
+    List<Incident> findByProjectIdAndDepartmentId(Long projectId, Long departmentId);
 }

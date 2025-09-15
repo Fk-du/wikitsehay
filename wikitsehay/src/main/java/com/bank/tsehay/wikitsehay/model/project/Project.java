@@ -2,6 +2,7 @@ package com.bank.tsehay.wikitsehay.model.project;
 
 import com.bank.tsehay.wikitsehay.model.Department;
 import com.bank.tsehay.wikitsehay.model.operation.ReleaseNote;
+import com.bank.tsehay.wikitsehay.model.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,7 +35,12 @@ public class Project {
 
     private String status;
 
+    private String vendor;
+
     // 🔗 Relations
+    @ManyToOne
+    @JoinColumn(name = "manager_id") // FK to users table
+    private User manager;
 
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = false)
