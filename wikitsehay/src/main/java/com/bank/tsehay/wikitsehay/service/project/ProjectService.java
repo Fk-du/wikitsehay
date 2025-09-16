@@ -120,4 +120,34 @@ public class ProjectService {
                 .vendor(project.getVendor())
                 .build();
     }
+
+    public ProjectResponse updateProjectByDepartment(Long projectId, Long departmentId, ProjectRequest request) {
+        Project project = projectRepository.findByIdAndDepartmentId(projectId, departmentId)
+                .orElseThrow(() -> new RuntimeException("Project not found in this department"));
+
+        project.setName(request.getName());
+        project.setCharter(request.getCharter());
+        project.setStartDate(request.getStartDate());
+        project.setEndDate(request.getEndDate());
+        project.setStatus(request.getStatus());
+        project.setVendor(request.getVendor());
+
+        // 🔑 Manager lookup by companyEmail (coming from frontend form)
+        if (request.getManager() != null && !request.getManager().isBlank()) {
+            User manager = userRepository.findByCompanyEmail(request.getManager())
+                    .orElseThrow(() -> new RuntimeException("Manager not found with email: " + request.getManager()));
+            project.setManager(manager);
+        }
+
+        // 🔑 Department reassignment if changed
+        if (request.getDepartmentId() != null && !request.getDepartmentId().equals(departmentId)) {
+            Department department = departmentRepository.findById(request.getDepartmentId())
+                    .orElseThrow(() -> new RuntimeException("Department not found"));
+            project.setDepartment(department);
+        }
+
+        return projectMapper.toResponse(projectRepository.save(project));
+    }
+
+
 }

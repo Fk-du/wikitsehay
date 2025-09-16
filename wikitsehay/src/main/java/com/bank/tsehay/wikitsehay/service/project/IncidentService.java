@@ -3,6 +3,7 @@ package com.bank.tsehay.wikitsehay.service.project;
 import com.bank.tsehay.wikitsehay.dto.operation.OperationalIncidentResponse;
 import com.bank.tsehay.wikitsehay.dto.project.IncidentRequest;
 import com.bank.tsehay.wikitsehay.dto.project.IncidentResponse;
+import com.bank.tsehay.wikitsehay.exceptions.ResourceNotFoundException;
 import com.bank.tsehay.wikitsehay.mapper.IncidentMapper;
 import com.bank.tsehay.wikitsehay.model.Department;
 import com.bank.tsehay.wikitsehay.model.project.Incident;
@@ -136,10 +137,52 @@ public class IncidentService {
         incidentRepository.deleteById(id);
     }
 
+//    Incidents specific to a single project
     public List<IncidentResponse> getProjectIncidents(Long departmentId, Long projectId) {
         List<Incident> incidents = incidentRepository.findByProjectIdAndDepartmentId(projectId, departmentId);
 
         return incidents.stream().map(this::mapToDto).collect(Collectors.toList());
+    }
+
+
+    public IncidentResponse updateIncidentByDepartment(Long incidentId, IncidentRequest request) {
+        Incident incident = incidentRepository.findById(incidentId)
+                .orElseThrow(() -> new RuntimeException("Incident not found"));
+
+        // Only update editable fields
+        incident.setTitle(request.getTitle());
+        incident.setDescription(request.getDescription());
+        incident.setStartDate(request.getStartDate());
+        incident.setEndDate(request.getEndDate());
+        incident.setSeverity(request.getSeverity());
+        incident.setCategory(request.getCategory());
+        incident.setStatus(request.getStatus());
+        incident.setRootCause(request.getRootCause());
+        incident.setActionTaken(request.getActionTaken());
+
+        // Do NOT update departmentId or projectId
+        // incident.setDepartment(...)   // skip
+        // incident.setProject(...)      // skip
+
+        Incident updated = incidentRepository.save(incident);
+        return mapToDto(updated);
+    }
+
+
+
+    public IncidentResponse getIncident(Long departmentId, Long projectId, Long incidentId) {
+        // Optional: validate department and project exist
+        Incident incident = incidentRepository.findByIdAndProjectIdAndDepartmentId(
+                        incidentId, projectId, departmentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Incident not found"));
+
+        return mapToDto(incident);
+    }
+
+    public Incident findIncident(Long departmentId, Long projectId, Long incidentId) {
+        return incidentRepository
+                .findByIdAndProjectIdAndDepartmentId(incidentId, projectId, departmentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Incident not found"));
     }
 
     private IncidentResponse mapToDto(Incident incident) {

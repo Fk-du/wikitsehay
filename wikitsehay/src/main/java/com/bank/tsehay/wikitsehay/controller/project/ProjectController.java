@@ -54,11 +54,22 @@ public class ProjectController {
         return ResponseEntity.noContent().build();
     }
 
+    //    get a specific project by department and project ID
     @GetMapping("/department/{departmentId}/{projectId}")
     public ResponseEntity<ProjectResponse> getProjectDetail(
             @PathVariable Long departmentId,
             @PathVariable Long projectId) {
         ProjectResponse project = projectService.getProjectDetail(departmentId, projectId);
         return ResponseEntity.ok(project);
+    }
+
+//    update a project by department and project ID
+    @PutMapping("/department/{departmentId}/{projectId}")
+    public ResponseEntity<ProjectResponse> updateProject(
+            @PathVariable Long departmentId,
+            @PathVariable Long projectId,
+            @RequestBody ProjectRequest request) {
+        ProjectResponse updatedProject = projectService.updateProjectByDepartment(projectId, departmentId, request);
+        return ResponseEntity.ok(updatedProject);
     }
 }

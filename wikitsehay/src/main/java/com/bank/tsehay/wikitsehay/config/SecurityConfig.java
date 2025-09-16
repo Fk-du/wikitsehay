@@ -26,8 +26,9 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtFilter;
 
     // Inject allowed origins from application.properties
-    @Value("${cors.allowed-origins:http://10.6.9.8:5173}")
-    private String[] allowedOrigins;
+
+    @Value("${cors.allowed-origins}")
+    private String allowedOrigins;
 
 
 
@@ -37,6 +38,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        String []arr = allowedOrigins.split(",");
         http
                 // Disable CSRF for stateless API
                 .csrf(csrf -> csrf.disable())
@@ -49,8 +52,8 @@ public class SecurityConfig {
                         // Admin-only endpoints
                         .requestMatchers("/api/users/**").hasRole("ADMIN")
                         // Authenticated endpoints with specific methods
-                        .requestMatchers(HttpMethod.GET, "/api/users/{id}").authenticated()
-                        .requestMatchers(HttpMethod.PUT, "/api/users/{id}").authenticated()
+                        .requestMatchers( "/api/users/{id}").authenticated()
+                        .requestMatchers( "/api/users/{id}").authenticated()
                         .requestMatchers("/api/projects/**").authenticated()
                         .requestMatchers("/api/operations/**").authenticated()
                         .requestMatchers("/api/incidents/**").authenticated()

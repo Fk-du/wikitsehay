@@ -2,6 +2,8 @@ package com.bank.tsehay.wikitsehay.controller.project;
 
 import com.bank.tsehay.wikitsehay.dto.project.IncidentRequest;
 import com.bank.tsehay.wikitsehay.dto.project.IncidentResponse;
+import com.bank.tsehay.wikitsehay.model.project.Incident;
+import com.bank.tsehay.wikitsehay.repository.project.IncidentRepository;
 import com.bank.tsehay.wikitsehay.service.project.IncidentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +17,8 @@ import java.util.List;
 public class IncidentController {
 
     private final IncidentService incidentService;
-
+//    private final Incident incident;
+    private final IncidentRepository incidentRepository;
     @PostMapping
     public ResponseEntity<IncidentResponse> createIncident(@RequestBody IncidentRequest request) {
         return ResponseEntity.ok(incidentService.createIncident(request));
@@ -37,6 +40,8 @@ public class IncidentController {
         return ResponseEntity.ok(incidentService.getByDepartment(departmentId));
     }
 
+
+    //    Incidents specific to a single project
     @GetMapping("/department/{departmentId}/{projectId}")
     public ResponseEntity<List<IncidentResponse>> getProjectIncidents(
             @PathVariable Long departmentId,
@@ -45,6 +50,8 @@ public class IncidentController {
         List<IncidentResponse> incidents = incidentService.getProjectIncidents(departmentId, projectId);
         return ResponseEntity.ok(incidents);
     }
+
+
 
     @GetMapping("/project/{projectId}")
     public ResponseEntity<List<IncidentResponse>> getByProject(@PathVariable Long projectId) {
@@ -62,5 +69,38 @@ public class IncidentController {
         incidentService.deleteIncident(id);
         return ResponseEntity.noContent().build();
     }
+
+
+    @PutMapping("/department/{departmentId}/{projectId}/{incidentId}")
+    public ResponseEntity<IncidentResponse> updateIncident(
+            @PathVariable Long departmentId,
+            @PathVariable Long projectId,
+            @PathVariable Long incidentId,
+            @RequestBody IncidentRequest request) {
+
+        // Optional: validate that incident belongs to this project & department
+        Incident incident = incidentRepository.findById(incidentId)
+                .orElseThrow(() -> new RuntimeException("Incident not found"));
+
+        if (!incident.getProject().getId().equals(projectId) ||
+                !incident.getDepartment().getId().equals(departmentId)) {
+            throw new RuntimeException("Incident does not belong to specified project/department");
+        }
+
+        IncidentResponse response = incidentService.updateIncident(incidentId, request);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/department/{departmentId}/{projectId}/{incidentId}")
+    public ResponseEntity<Incident> getIncident(
+            @PathVariable Long departmentId,
+            @PathVariable Long projectId,
+            @PathVariable Long incidentId) {
+
+        Incident incident = incidentService.findIncident(departmentId, projectId, incidentId);
+        return ResponseEntity.ok(incident);
+    }
+
+
 }
 
