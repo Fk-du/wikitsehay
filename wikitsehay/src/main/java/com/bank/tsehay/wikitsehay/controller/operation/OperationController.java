@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/operations")
+@RequestMapping("/api/operations")
 @RequiredArgsConstructor
 public class OperationController {
     private final OperationService operationService;
@@ -59,6 +59,22 @@ public class OperationController {
     public ResponseEntity<Void> deleteOperation(@PathVariable Long id) {
         operationService.deleteOperation(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{departmentId}/{operationId}")
+    public ResponseEntity<OperationResponse> getOperation(
+            @PathVariable Long departmentId,
+            @PathVariable Long operationId) {
+        return ResponseEntity.ok(operationService.getOperation(departmentId, operationId));
+    }
+
+    @PutMapping("/{departmentId}/{operationId}")
+    public ResponseEntity<OperationResponse> updateOperation(
+            @PathVariable Long departmentId,
+            @PathVariable Long operationId,
+            @RequestBody OperationRequest request
+    ) {
+        return ResponseEntity.ok(operationService.updateOperationByOperationId(departmentId, operationId, request));
     }
 }
 

@@ -7,6 +7,7 @@ import com.bank.tsehay.wikitsehay.model.Department;
 import com.bank.tsehay.wikitsehay.model.operation.Operation;
 import com.bank.tsehay.wikitsehay.repository.DepartmentRepository;
 import com.bank.tsehay.wikitsehay.repository.operation.OperationRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -87,6 +88,62 @@ public class OperationService {
 
     public void deleteOperation(Long id) {
         operationRepository.deleteById(id);
+    }
+
+    public OperationResponse getOperation(Long departmentId, Long operationId) {
+        Operation operation = operationRepository.findByIdAndOwnerDepartment_Id(operationId, departmentId)
+                .orElseThrow(() -> new RuntimeException("Operation not found"));
+
+        return OperationResponse.builder()
+                .id(operation.getId())
+                .name(operation.getName())
+                .description(operation.getDescription())
+                .vendor(operation.getVendor())
+                .status(operation.getStatus())
+                .sla(operation.getSla())
+                .criticality(operation.getCriticality())
+                .startDate(operation.getStartDate())
+                .endDate(operation.getEndDate())
+                .departmentName(operation.getOwnerDepartment().getName())
+                .build();
+    }
+
+    public OperationResponse updateOperationByOperationId(Long departmentId, Long operationId, OperationRequest request) {
+        Operation operation = operationRepository.findById(operationId)
+                .orElseThrow(() -> new EntityNotFoundException("Operation not found"));
+
+        if (!operation.getOwnerDepartment().getId().equals(departmentId)) {
+            throw new IllegalArgumentException("Operation does not belong to this department");
+        }
+
+        Department department = departmentRepository.findById(request.getDepartmentId())
+                .orElseThrow(() -> new EntityNotFoundException("Department not found"));
+
+        // 🔹 Update fields
+        operation.setName(request.getName());
+        operation.setDescription(request.getDescription());
+        operation.setVendor(request.getVendor());
+        operation.setStatus(request.getStatus());
+        operation.setSla(request.getSla());
+        operation.setCriticality(request.getCriticality());
+        operation.setStartDate(request.getStartDate());
+        operation.setEndDate(request.getEndDate());
+        operation.setOwnerDepartment(department);
+
+        Operation updated = operationRepository.save(operation);
+
+        return new OperationResponse(
+                updated.getId(),
+                updated.getName(),
+                updated.getDescription(),
+                updated.getVendor(),
+                updated.getStatus(),
+                updated.getSla(),
+                updated.getCriticality(),
+                updated.getStartDate(),
+                updated.getEndDate(),
+                updated.getOwnerDepartment().getName()
+        );
     }
 
     private OperationResponse toResponse(Operation operation) {
